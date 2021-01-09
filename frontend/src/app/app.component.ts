@@ -1,3 +1,4 @@
+import { AppService } from './app.service';
 import { Component } from '@angular/core';
 import * as moment from 'moment';
 
@@ -8,4 +9,13 @@ import * as moment from 'moment';
 })
 export class AppComponent {
   title = 'frontend';
+  
+  constructor(private appService : AppService){}
+
+  ngOnInit() {
+    this.appService.test()
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
 }
