@@ -5,18 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarViewComponent } from './calendar-view/calendar-view.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarViewComponent
+    CalendarViewComponent,
+    LoginComponent,
+    RegisterComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
-    FontAwesomeModule
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

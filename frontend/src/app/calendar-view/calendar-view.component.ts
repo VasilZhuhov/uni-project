@@ -10,6 +10,7 @@ export class CalendarViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    init();
   }
 
 }

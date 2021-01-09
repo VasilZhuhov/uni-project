@@ -1,6 +1,6 @@
   function init() {
     (function($){
-\      var Calendar = function (elem, options) {
+      var Calendar = function (elem, options) {
         this.elem = elem;
         this.options = $.extend({}, Calendar.DEFAULTS, options);
         this.init();
@@ -110,7 +110,7 @@
             if(div.textContent == currDay && currMonth == month + 1 && month == datetime.month()){
               div.classList.add("currentDay");
             }
-            a.href = `${this.options.datetime.year()}/${month+1}/${div.innerHTML}/events`
+            a.href = `${this.options.datetime.year()}-${month+1}-${div.innerHTML}/events`
 
             div.style.width = '100%';
             div.style.height = '100%';
