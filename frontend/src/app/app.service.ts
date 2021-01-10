@@ -7,7 +7,7 @@ export class AppService {
 
   constructor(private http: HttpClient) { }
 
-  test(): Observable<any> {
-    return this.http.get('http://localhost:8080/greeting');
+  getUser(user): Observable<any> {
+    return this.http.post('http://localhost:8080/user', user);
   }
 }
