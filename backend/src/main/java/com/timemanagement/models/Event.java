@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +16,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
@@ -55,8 +53,5 @@ public class Event {
         this.setStartTime(e.getStartTime());
         this.setLocation(e.getLocation());
         this.setTitle(e.getTitle());
-//        for (UserEvent ue : e.getUsersEvent()) {
-//            usersEvent.add(new UserEvent(ue.getUser(), e));
-//        }
     }
 }

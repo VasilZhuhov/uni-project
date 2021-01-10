@@ -51,6 +51,7 @@ public class TimeManagementController {
         newEvent = eventRepository.save(newEvent);
         for (UserEvent ue : event.getUsersEvent()) {
             ue.setEvent(newEvent);
+            ue.setAccepted(true);
             userEventRepository.save(ue);
         }
         return new ResponseEntity<>(HttpStatus.OK);
