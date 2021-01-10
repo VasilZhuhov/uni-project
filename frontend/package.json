@@ -26,7 +26,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@ng-bootstrap/ng-bootstrap": "^8.0.1",
     "bootstrap": "^4.5.3",
-    "font-awesome": "^5.13.0",
     "jquery": "^3.5.1",
     "moment": "^2.29.1",
     "rxjs": "~6.5.5",
