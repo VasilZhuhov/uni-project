@@ -1,0 +1,76 @@
+<h1 class="d-flex justify-content-center">Add Event</h1>
+<div class="containers d-flex justify-content-center">
+    <form (ngSubmit)="onSubmit()" #addEventForm="ngForm">
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="form-group">
+                        <label class="mb-0" for="eventTitle">Event Title</label>
+                        <input type="text" name="eventTitle" class="form-control mb-2 event-title-input" id="eventTitle"
+                            required
+                            [(ngModel)]="model.eventTitle" placeholder="Event Title"
+                            #eventTitle="ngModel"/>
+                            <div [hidden]="eventTitle.valid || eventTitle.pristine"
+                                class="alert alert-danger">
+                                Event Title is required
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-0" for="startTime">Start Time</label>
+                        <div class="input-group clockpicker">
+                            <input type="text" name="startTime" id="startTime" class="form-control" [(ngModel)]="model.startTime"
+                                required #startTime="ngModel" value="00:00">
+                        </div>
+                        <div [hidden]="startTime.valid || startTime.pristine"
+                                class="alert alert-danger alert-message-margin">
+                                Start time is required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-0 mt-1" for="endTime">End Time</label>
+                        <div class="input-group clockpicker">
+                            <input type="text" name="endTime" id="endTime" class="form-control" [(ngModel)]="model.endTime"
+                            required #endTime="ngModel" value="00:00">
+                        </div>
+                        <div [hidden]="endTime.valid || endTime.pristine"
+                                class="alert alert-danger alert-message-margin">
+                                End time is required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <ul class="list-group border border-light mb-0 mt-1 p-2 participants">
+                            <label for="participants">Participants: </label>
+                            <li class="d-flex justify-content-between">
+                                <label class="">owner@gmail.com</label>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <label class="">guest_mail@gmail.com</label>
+                                <div>
+                                    <i class="far fa-edit text-info"></i>
+                                    <i class="far fa-trash-alt text-danger"></i>
+                                </div>
+                            </li>
+                            <li class="d-flex">
+                                <button type="button" class="btn-sm btn-block btn-success">
+                                    Add <i class="fas fa-user-plus"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-0" for="location">Location</label>
+                        <input type="text" class="form-control mb-2 location-input" name="location" id="location"
+                            [(ngModel)]="model.location" placeholder="Location">
+                    </div>
+                    <div class="form-group">
+                        <label class="mt-1" for="additionalInfo">Additional info</label>
+                        <textarea class="additional-info-textarea" name="additionalInfo" id="additionalInfo" rows="10" cols="30"
+                            [(ngModel)]="model.additionalInfo">
+                        </textarea>
+                    </div>
+                </li>
+                <button type="submit" class="btn btn btn-primary my-2 px-2" [disabled]="!addEventForm.form.valid">Create Event</button>
+            </ul>
+        </div>
+    </form>
+</div>

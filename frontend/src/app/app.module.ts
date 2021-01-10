@@ -1,3 +1,5 @@
+import { EventRequestsComponent } from './event-requests/event-requests.component';
+import { AddEventComponent } from './add-event/add-event.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -10,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { EventsComponent } from './events/events.component';
 import {AppService} from './app.service'
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,13 +20,16 @@ import { HttpClientModule } from '@angular/common/http';
     CalendarViewComponent,
     LoginComponent,
     RegisterComponent,
-    EventsComponent
+    EventsComponent,
+    AddEventComponent,
+    EventRequestsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]
