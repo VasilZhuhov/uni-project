@@ -1,5 +1,6 @@
 package com.timemanagement;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ import com.timemanagement.models.User;
 import com.timemanagement.models.UserEvent;
 import com.timemanagement.models.UserEventRepository;
 import com.timemanagement.models.UserRepository;
+
 
 @RestController
 public class TimeManagementController {
@@ -41,6 +43,10 @@ public class TimeManagementController {
 
     @PostMapping("/users")
     public ResponseEntity<Void> createUser(@RequestBody User user) {
+        User u = userRepository.findUserByCredentials(user.getEmail(), user.getPassword());
+        if (u != null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
         userRepository.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -55,6 +61,11 @@ public class TimeManagementController {
             userEventRepository.save(ue);
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<User> authenticate(@RequestBody User user) {
+        return new ResponseEntity<>(userRepository.findUserByCredentials(user.getEmail(), user.getPassword()), HttpStatus.OK);
     }
 
 }

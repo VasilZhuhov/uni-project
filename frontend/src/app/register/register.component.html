@@ -1,21 +1,21 @@
 <h1 class="d-flex justify-content-center">Register</h1>
 <div class="containers d-flex justify-content-center">
-    <form class="col-3" method="POST" action="/register">
+    <form class="col-3" ngNativeValidate (ngSubmit)="register()">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+                <input type="text" name="username" required [(ngModel)]="form.username" class="form-control" id="username" placeholder="Username">
             </div>
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" name="email" class="form-control" id="email" placeholder="Email" aria-describedby="emailHelp">
+                <input type="email" name="email" required [(ngModel)]="form.email" class="form-control" id="email" placeholder="Email" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                <input type="password" name="password" required [(ngModel)]="form.password" class="form-control" id="password" placeholder="Password">
             </div>
             <div class="form-group">
                 <label for="confirm-password">Confirm Password</label>
-                <input type="password" name="password2" class="form-control" id="confirm-password" placeholder="Confirm Password">
+                <input type="password" name="password2" [(ngModel)]="passwordConfirm" class="form-control" id="confirm-password" placeholder="Confirm Password">
             </div>
             <button type="submit" class="btn btn-primary btn-sm btn-block">Sing Up</button>
             <br>

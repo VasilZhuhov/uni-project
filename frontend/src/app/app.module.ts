@@ -13,6 +13,7 @@ import { EventsComponent } from './events/events.component';
 import {AppService} from './app.service'
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AuthenticationService } from './authentication.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,10 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule
   ],
-  providers: [AppService],
+  providers: [
+    AppService,
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
