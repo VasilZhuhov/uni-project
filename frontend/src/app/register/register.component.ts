@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
 
   passwordConfirm = '';
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -27,7 +29,8 @@ export class RegisterComponent implements OnInit {
       this.appService.register(this.form).pipe(
         first()
       ).subscribe(res => {
-        console.log(res);
+        sessionStorage.setItem('user', JSON.stringify(this.form));
+        this.router.navigateByUrl('/');
       });
     }
   }
