@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
@@ -21,12 +22,12 @@ public class UserEvent {
 
     @ManyToOne
     @JoinColumn(name = "event_id")
-    @JsonIgnore
+    @JsonIgnoreProperties("userEvents")
     private Event event;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+    @JsonIgnoreProperties("userEvents")
     private User user;
 
     private boolean isAccepted;
