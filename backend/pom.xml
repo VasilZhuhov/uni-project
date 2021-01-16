@@ -59,6 +59,11 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.2.18</version>
 		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.10.9</version>
+		</dependency>
 	</dependencies>
 
 	<build>

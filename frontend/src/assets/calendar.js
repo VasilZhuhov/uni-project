@@ -110,7 +110,7 @@
             if(div.textContent == currDay && currMonth == month + 1 && month == datetime.month()){
               div.classList.add("currentDay");
             }
-            a.href = `${this.options.datetime.year()}-${month+1}-${div.innerHTML}/events`
+            a.href = `${this.options.datetime.valueOf()}/events`
 
             div.style.width = '100%';
             div.style.height = '100%';
