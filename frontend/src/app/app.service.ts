@@ -48,4 +48,8 @@ export class AppService {
   deleteEvent(eventId): Observable<any> {
     return this.http.delete('http://localhost:8080/events/' + eventId);
   }
+
+  getEvent(eventId): Observable<any> {
+    return this.http.get('http://localhost:8080/events/' + eventId);
+  }
 }

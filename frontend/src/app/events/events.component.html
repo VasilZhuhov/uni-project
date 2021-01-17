@@ -6,8 +6,8 @@
             <div class="d-flex justify-content-between">
                 <h5 class="mb-1">{{event.title}}</h5>
                 <div>
-                    <a (click)="edit(i)"><i class="fa fa-edit text-info"></i></a>
-                    <a (click)="delete(i)"><i class="fa fa-trash-alt text-danger"></i></a>
+                    <a (click)="edit(event.id)"><i class="fa fa-edit text-info"></i></a>
+                    <a (click)="delete(event.id)"><i class="fa fa-trash-alt text-danger"></i></a>
                 </div>
             </div>
             <small class="d-block mb-1"><i class="fas fa-clock"></i> {{event.startTime | date: 'shortTime'}} - {{event.endTime | date: 'shortTime'}}</small>
@@ -17,6 +17,5 @@
 
         <br>
         <a class="btn btn-success mb-1" routerLink="add-event">Add Event</a>
-        <a href="/schedule" class="btn btn-primary">Schedule It!</a>
     </div>
 </div>

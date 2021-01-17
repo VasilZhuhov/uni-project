@@ -42,6 +42,7 @@ export class EventsComponent implements OnInit {
   }
 
   edit(index) {
+    this.router.navigate([`${this.todayTimestamp}/events/${index}`]);
   }
 
 }

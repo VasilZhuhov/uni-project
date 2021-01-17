@@ -18,6 +18,7 @@ export class AddEventComponent implements OnInit {
     emails: any;
     currentUser: any;
     disabledInputs: boolean[] = [];
+    isEdit: boolean = false;
 
     search = (text$: Observable<string>) =>
     text$.pipe(
@@ -32,6 +33,13 @@ export class AddEventComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
+        this.activeRoute.queryParams
+            .subscribe(params => {
+                if(params.isEdit) {
+                    this.isEdit = params.isEdit;
+                }
+            })
+
         this.disabledInputs.push(true);
 
         this.currentUser = JSON.parse(sessionStorage.getItem('user'));

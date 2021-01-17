@@ -6,6 +6,7 @@ import { CalendarViewComponent } from './calendar-view/calendar-view.component';
 import { EventsComponent } from './events/events.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { EditEventComponent } from './edit-event/edit-event.component';
 
 const routes: Routes = [
   { path: '', component: CalendarViewComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: ':date/events', component: EventsComponent },
   { path: ':date/events/add-event', component: AddEventComponent },
-  { path: 'event-requests', component: EventRequestsComponent }
+  { path: 'event-requests', component: EventRequestsComponent },
+  { path: ':date/events/:eventId', component: EditEventComponent}
 ];
 
 @NgModule({

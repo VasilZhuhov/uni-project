@@ -100,7 +100,7 @@ public class TimeManagementController {
                     event.setEndTime(newEvent.getEndTime());
                     event.setDescription(newEvent.getDescription());
                     event.setLocation(newEvent.getLocation());
-                    event.setUsersEvent(newEvent.getUsersEvent());
+//                    event.setUsersEvent(newEvent.getUsersEvent());
                     return eventRepository.save(event);
                 }).orElse(null);
 
@@ -151,53 +151,17 @@ public class TimeManagementController {
         return new ResponseEntity<>(userRepository.findUserByCredentials(user.getEmail(), user.getPassword()), HttpStatus.OK);
     }
 
-    @PostMapping("{userId}/{date}/schedule")
-    public ResponseEntity<Map<String, Event>> schedule(@RequestParam long userId, @RequestParam Date date,
-                                                       @RequestBody ScheduleParams params) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(params.getStartTime());
-
-        Map<String, Event> schedule = new HashMap<>();
-
-        User currentUser = userRepository.getOne(userId);
-
-        Set<UserEvent> userEventSet = currentUser.getUserEvents();
-        List<UserEvent> userEvents = new ArrayList<>(userEventSet);
-        Collections.sort(userEvents, new Comparator<UserEvent>() {
-            @Override
-            public int compare(UserEvent o1, UserEvent o2) {
-                if (o1.getEvent().getStartTime() == null || o2.getEvent().getStartTime() == null) {
-                    return 0;
-                }
-                return o1.getEvent().getStartTime().before(o2.getEvent().getStartTime()) ? 1 : 0;
-            }
-        });
-        System.out.println(userEvents.toString());
-        Event prev = null;
-
-        for (UserEvent ue : userEvents) {
-            Event currentEvent = ue.getEvent();
-            if (ue.getEvent().getStartTime() != null) {
-                if (prev != null && !prev.getLocation().equals(currentEvent.getLocation())) {
-                    cal.add(Calendar.MINUTE, 30);
-                }
-                schedule.put(cal.getTime().toString(), ue.getEvent());
-                cal.add(Calendar.MINUTE, (int) getDateDiff(currentEvent.getStartTime(), currentEvent.getEndTime()));
-                prev = currentEvent;
-            }
+    @GetMapping("/events/{eventId}")
+    public ResponseEntity<Event> getEvent(@PathVariable long eventId) {
+        Event event = eventRepository.findById(eventId).orElse(null);
+        if (event != null) {
+            return new ResponseEntity<>(event, HttpStatus.OK);
         }
-        return new ResponseEntity<Map<String, Event>>(schedule, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     private static long getDateDiff(Date date1, Date date2) {
         long diffInMillies = date2.getTime() - date1.getTime();
         return TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
     }
-
-    @DeleteMapping("{eventId}")
-    void deleteMe(@PathVariable Long eventId) {
-        System.out.println(eventId);
-        eventRepository.deleteById(eventId);
-    }
-
 }

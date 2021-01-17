@@ -1,0 +1,37 @@
+.event-title-input {
+    border-radius: 0.25rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.participants {
+    border-radius: 0.25rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.location-input {
+    border-radius: 0.25rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.additional-info-textarea {
+    width: 100%;
+}
+
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+   border-left: 5px solid #a94442; /* red */
+}
+
+.alert-message-margin {
+    margin-top: 5px;
+}
+
+.width-90 {
+    width: 90%;
+}

@@ -14,6 +14,7 @@ import {AppService} from './app.service'
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from './authentication.service';
+import { EditEventComponent } from './edit-event/edit-event.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthenticationService } from './authentication.service';
     RegisterComponent,
     EventsComponent,
     AddEventComponent,
-    EventRequestsComponent
+    EventRequestsComponent,
+    EditEventComponent
   ],
   imports: [
     BrowserModule,
