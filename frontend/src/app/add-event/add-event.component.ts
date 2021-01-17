@@ -90,7 +90,7 @@ export class AddEventComponent implements OnInit {
             .pipe(
                 first()
             ).subscribe(res => {
-                this.router.navigateByUrl('/');
+                this.router.navigateByUrl(`/${this.currentTime}/events`);
             });
         this.submitted = true;
     }

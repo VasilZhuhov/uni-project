@@ -33,7 +33,7 @@ export class EventsComponent implements OnInit {
   }
 
   delete(index) {
-    this.appService.deleteEvent(this.events[index].id)
+    this.appService.deleteEvent(index)
       .pipe(
         first()
       ).subscribe(res => {
