@@ -1,11 +1,11 @@
 export class AddEventDataModel {
 
     constructor(
-        public eventTitle: string = '',
-        public startTime: Date = null,
-        public endTime: Date = null,
+        public title: string = '',
+        public startTime: any = null,
+        public endTime: any = null,
         public location: string = '',
-        public participants?: Array<string>,
-        public additionalInfo?: string
+        public participants: any = [],
+        public description?: string,
     ) {}
 }

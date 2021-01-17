@@ -8,7 +8,7 @@
                         <label class="mb-0" for="eventTitle">Event Title</label>
                         <input type="text" name="eventTitle" class="form-control mb-2 event-title-input" id="eventTitle"
                             required
-                            [(ngModel)]="model.eventTitle" placeholder="Event Title"
+                            [(ngModel)]="model.title" placeholder="Event Title"
                             #eventTitle="ngModel"/>
                             <div [hidden]="eventTitle.valid || eventTitle.pristine"
                                 class="alert alert-danger">
@@ -17,41 +17,25 @@
                     </div>
                     <div class="form-group">
                         <label class="mb-0" for="startTime">Start Time</label>
-                        <div class="input-group clockpicker">
-                            <input type="text" name="startTime" id="startTime" class="form-control" [(ngModel)]="model.startTime"
-                                required #startTime="ngModel" value="00:00">
-                        </div>
-                        <div [hidden]="startTime.valid || startTime.pristine"
-                                class="alert alert-danger alert-message-margin">
-                                Start time is required
-                        </div>
+                        <ngb-timepicker name="startTime" id="startTime" [(ngModel)]="model.startTime"></ngb-timepicker>
                     </div>
                     <div class="form-group">
-                        <label class="mb-0 mt-1" for="endTime">End Time</label>
-                        <div class="input-group clockpicker">
-                            <input type="text" name="endTime" id="endTime" class="form-control" [(ngModel)]="model.endTime"
-                            required #endTime="ngModel" value="00:00">
-                        </div>
-                        <div [hidden]="endTime.valid || endTime.pristine"
-                                class="alert alert-danger alert-message-margin">
-                                End time is required
-                        </div>
+                        <label class="mb-0" for="startTime">End Time</label>
+                        <ngb-timepicker name="endTime" id="endTime" [(ngModel)]="model.endTime"></ngb-timepicker>
                     </div>
                     <div class="form-group">
                         <ul class="list-group border border-light mb-0 mt-1 p-2 participants">
                             <label for="participants">Participants: </label>
-                            <li class="d-flex justify-content-between">
-                                <label class="">owner@gmail.com</label>
+                            <li *ngFor="let participant of model.participants; let i = index; trackBy: trackByFn" class="d-flex">
+                                <input class="width-90 " [disabled]="disabledInputs[i]" id="typeahead-basic" name="{{i}}" type="text" [(ngModel)]="model.participants[i]" [ngbTypeahead]="search"/>
+                                <ng-container *ngIf="i + 1 != model.participants.length && i != 0">
+                                    <i *ngIf="disabledInputs[i]" class="far fa-edit text-info mt-1" (click)="editEmail(i)"></i>
+                                    <i class="far fa-trash-alt text-danger mt-1" (click)="removeEmail(i)"></i>
+                                </ng-container>
                             </li>
-                            <li class="d-flex justify-content-between">
-                                <label class="">guest_mail@gmail.com</label>
-                                <div>
-                                    <i class="far fa-edit text-info"></i>
-                                    <i class="far fa-trash-alt text-danger"></i>
-                                </div>
-                            </li>
+                            <br>
                             <li class="d-flex">
-                                <button type="button" class="btn-sm btn-block btn-success">
+                                <button type="button" class="btn-sm btn-block btn-success" (click)="addEmail()">
                                     Add <i class="fas fa-user-plus"></i>
                                 </button>
                             </li>
@@ -63,9 +47,9 @@
                             [(ngModel)]="model.location" placeholder="Location">
                     </div>
                     <div class="form-group">
-                        <label class="mt-1" for="additionalInfo">Additional info</label>
-                        <textarea class="additional-info-textarea" name="additionalInfo" id="additionalInfo" rows="10" cols="30"
-                            [(ngModel)]="model.additionalInfo">
+                        <label class="mt-1" for="description">Additional info</label>
+                        <textarea class="additional-info-textarea" name="additionalInfo" id="description" rows="10" cols="30"
+                            [(ngModel)]="model.description">
                         </textarea>
                     </div>
                 </li>

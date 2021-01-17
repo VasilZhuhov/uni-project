@@ -2,18 +2,17 @@
 <div class="containers d-flex justify-content-center">
     <div class="list-group col-3">
       <!-- <% for(let event of events) {%> -->
-        <div class="list-group-item align-items-center">
+        <div *ngFor="let event of events; let i = index" class="list-group-item align-items-center">
             <div class="d-flex justify-content-between">
-                <h5 class="mb-1">Event Title</h5>
+                <h5 class="mb-1">{{event.title}}</h5>
                 <div>
-                    <a [href]="['editEvent']"><i class="fa fa-edit text-info"></i></a>
-                    <a [href]="['deleteEvent']"><i class="fa fa-trash-alt text-danger"></i></a>
+                    <a (click)="edit(i)"><i class="fa fa-edit text-info"></i></a>
+                    <a (click)="delete(i)"><i class="fa fa-trash-alt text-danger"></i></a>
                 </div>
             </div>
-            <small class="d-block mb-1"><i class="fas fa-clock"></i> StartTime - EndTime</small>
-            <small class="d-block mb-1"><i class="fas fa-users"></i> Participants: </small>
-            <small class="d-block mb-1"><i class="fas fa-user"></i> Created by: </small>
-            <span><i class="fas fa-map-marker-alt"></i> Location: </span>
+            <small class="d-block mb-1"><i class="fas fa-clock"></i> {{event.startTime | date: 'shortTime'}} - {{event.endTime | date: 'shortTime'}}</small>
+            <small class="d-block mb-1"><i class="fas fa-user"></i> Created by: {{user.email}}</small>
+            <span><i class="fas fa-map-marker-alt"></i> Location: {{event.location}}</span>
         </div>
 
         <br>

@@ -67,7 +67,7 @@
           case 'day': this.renderDayView(); break;
           case 'week': this.renderWeekView(); break;
           case 'month': this.renderMonthView(); break;
-          befault: this.renderMonth();
+          default: this.renderMonth();
         }
       }
 
@@ -110,7 +110,12 @@
             if(div.textContent == currDay && currMonth == month + 1 && month == datetime.month()){
               div.classList.add("currentDay");
             }
-            a.href = `${this.options.datetime.valueOf()}/events`
+            let date = new Date();
+            date.setFullYear(this.options.datetime.year());
+            date.setMonth(month);
+            date.setDate(div.innerHTML);
+            date.setUTCHours(0, 0, 0);
+            a.href = `${date.valueOf()}/events`
 
             div.style.width = '100%';
             div.style.height = '100%';

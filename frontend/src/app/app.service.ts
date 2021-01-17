@@ -10,14 +10,19 @@ export class AppService {
   register(user): Observable<any> {
     return this.http.post('http://localhost:8080/users', user);
   }
-  
+
+  getUsers(): Observable<any> {
+    return this.http.get('http://localhost:8080/users');
+  }
+
   createEvent(event) {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    return this.http.put('http://localhost:8080/' + user.id + '/events', event);
+    return this.http.post('http://localhost:8080/' + user.id + '/events', event);
   }
 
   getAcceptedEventsByTimestamp(timestamp): Observable<any> {
     const user = JSON.parse(sessionStorage.getItem('user'));
+    console.log(user);
     return this.http.get('http://localhost:8080/' + user.id + '/events/' + timestamp + '?isAccepted=true');
   }
 
