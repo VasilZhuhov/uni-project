@@ -29,6 +29,9 @@ public class Event {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column
+    private String creatorEmail;
+
     @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<UserEvent> usersEvent = new HashSet<>();
@@ -42,5 +45,6 @@ public class Event {
         this.setStartTime(e.getStartTime());
         this.setLocation(e.getLocation());
         this.setTitle(e.getTitle());
+        this.setCreatorEmail(e.getCreatorEmail());
     }
 }

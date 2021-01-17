@@ -5,34 +5,41 @@
         <div class="col-md">
             <div class="people-nearby">
 
-                <div *ngFor="let event of events">
+                <div *ngFor="let event of events; let i = index">
                     <div class="card" style="padding: 8px; margin-top: 36px; margin-bottom: 36px;">
                         <div class="nearby-user">
                             <div class="row">
                                 <div class="col-md-9 col-sm-9">
-                                    <h5><a href="#" class="profile-link">{{ event.eventTitle }}</a></h5>
+                                    <h5><a href="#" class="profile-link">{{ event.title }}</a></h5>
                                     <small class="d-block mb-1"><i class="fas fa-clock"></i>
-                                        {{ event.startTime.toLocaleDateString()}} {{
-                                        event.startTime.toLocaleTimeString() }} - {{
-                                        event.endTime.toLocaleDateString()}} {{ event.endTime.toLocaleTimeString() }}
+                                        {{ event.startTime | date: 'short' }} - {{ event.endTime | date: 'short'}} 
                                     </small>
                                     <small *ngIf="event.participants" class="d-block mb-1"><i class="fas fa-users"></i>
                                         Participants:
                                         <a href="">{{ event.participants.length }}</a>
                                     </small>
                                     <small class="d-block mb-1"><i class="fas fa-user"></i> Created by:
-                                        {{ event.eventOwner }}</small>
+                                        {{ event.creatorEmail }}</small>
                                     <span><i class="fas fa-map-marker-alt"></i> {{ event.location }}</span>
                                 </div>
                                 <div class="col-md-3 col-sm-3">
-                                    <button class="btn-sm btn-outline-success float-right"
-                                        style="width: 80px; margin-bottom: 5px;">Approve</button>
-                                    <button class="btn-sm btn-outline-danger float-right"
-                                        style="width: 80px;">Ignore</button>
+                                    <button class="btn-sm btn-outline-success float-right approve-btn" (click)="acceptEvent(event, i)">
+                                        Approve
+                                    </button>
+                                    <button class="btn-sm btn-outline-danger float-right ignore-btn" (click)="ignoreEvent(event, i)">
+                                        Ignore
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div *ngIf="events.length === 0">
+                    <p>
+                        <ngb-alert [type]="'info'" [dismissible]="false">
+                            No Event Requests Found!
+                        </ngb-alert>
+                    </p>
                 </div>
             </div>
         </div>

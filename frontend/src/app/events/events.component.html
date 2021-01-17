@@ -1,7 +1,6 @@
 <h1 class="d-flex justify-content-center">Events for Today: {{ todayTimestamp | date }}</h1>
 <div class="containers d-flex justify-content-center">
     <div class="list-group col-3">
-      <!-- <% for(let event of events) {%> -->
         <div *ngFor="let event of events; let i = index" class="list-group-item align-items-center">
             <div class="d-flex justify-content-between">
                 <h5 class="mb-1">{{event.title}}</h5>
@@ -11,7 +10,7 @@
                 </div>
             </div>
             <small class="d-block mb-1"><i class="fas fa-clock"></i> {{event.startTime | date: 'shortTime'}} - {{event.endTime | date: 'shortTime'}}</small>
-            <small class="d-block mb-1"><i class="fas fa-user"></i> Created by: {{user.email}}</small>
+            <small class="d-block mb-1"><i class="fas fa-user"></i> Created by: {{ event.creatorEmail }}</small>
             <span><i class="fas fa-map-marker-alt"></i> Location: {{event.location}}</span>
         </div>
 

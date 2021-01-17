@@ -22,13 +22,12 @@ export class AppService {
 
   getAcceptedEventsByTimestamp(timestamp): Observable<any> {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    console.log(user);
     return this.http.get('http://localhost:8080/' + user.id + '/events/' + timestamp + '?isAccepted=true');
   }
 
-  getNotAcceptedEventsByTimestamp(timestamp): Observable<any> {
+  getUnacceptedEvents(): Observable<any> {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    return this.http.get('http://localhost:8080/' + user.id + '/events/' + timestamp + '?isAccepted=false');
+    return this.http.get('http://localhost:8080/' + user.id + '/events');
   }
 
   acceptEvent(eventId): Observable<any> {

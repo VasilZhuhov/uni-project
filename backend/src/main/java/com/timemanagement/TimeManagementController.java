@@ -7,11 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class TimeManagementController {
 
@@ -27,7 +29,6 @@ public class TimeManagementController {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
-    // working
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable long id) {
         User user = userRepository.findById(id).orElse(null);
@@ -38,7 +39,6 @@ public class TimeManagementController {
         }
     }
 
-    // working
     @PostMapping("/users")
     public ResponseEntity<Void> createUser(@RequestBody User user) {
         User u = userRepository.findUserByCredentials(user.getEmail(), user.getPassword());
@@ -49,8 +49,6 @@ public class TimeManagementController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // Should we return only events for which isAccepted == true? - For now we return all(true and false)
-    // working when sending value for isAccepted
     @GetMapping("{userId}/events/{timestamp}")
     public ResponseEntity<List<Event>> getEvents(@PathVariable long userId, @PathVariable long timestamp,
                                                  @RequestParam("isAccepted") Boolean isAccepted) {
@@ -69,10 +67,27 @@ public class TimeManagementController {
         return new ResponseEntity<>(currentDateEvents, HttpStatus.OK);
     }
 
-    // working
+    @GetMapping("{userId}/events")
+    public ResponseEntity<List<Event>> getUnacceptedEvents(@PathVariable long userId) {
+        List<Event> unacceptedEvents = userEventRepository.findUserEventsByUserId(userId).stream()
+                .filter(ue -> !ue.isAccepted())
+                .map(UserEvent::getEvent)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(unacceptedEvents, HttpStatus.OK);
+    }
+
     @PostMapping("{userId}/events")
     public ResponseEntity<Void> createEvent(@PathVariable long userId, @RequestBody Event event) {
         Event newEvent = new Event(event);
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            newEvent.setCreatorEmail(user.getEmail());
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         newEvent = eventRepository.save(newEvent);
         for (UserEvent ue : event.getUsersEvent()) {
             ue.setEvent(newEvent);
@@ -82,7 +97,6 @@ public class TimeManagementController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // working
     @DeleteMapping("/events/{eventId}")
     public ResponseEntity<Void> deleteEvent(@PathVariable long eventId) {
         userEventRepository.deleteUserEventByEventId(eventId);
@@ -90,7 +104,6 @@ public class TimeManagementController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // If userEvent is updated how to update it in user_event table?
     @PutMapping("/events/{eventId}")
     public ResponseEntity<Event> updateEvent(@PathVariable long eventId, @RequestBody Event newEvent) {
         Event updatedEvent = eventRepository.findById(eventId)
@@ -100,7 +113,6 @@ public class TimeManagementController {
                     event.setEndTime(newEvent.getEndTime());
                     event.setDescription(newEvent.getDescription());
                     event.setLocation(newEvent.getLocation());
-//                    event.setUsersEvent(newEvent.getUsersEvent());
                     return eventRepository.save(event);
                 }).orElse(null);
 
@@ -111,7 +123,6 @@ public class TimeManagementController {
         }
     }
 
-    // working
     @PutMapping("{userId}/events/{eventId}")
     public ResponseEntity<Event> acceptEvent(@PathVariable long userId, @PathVariable long eventId) {
         List<UserEvent> userEventsByUserId = userEventRepository.findUserEventsByUserId(userId);
@@ -129,7 +140,6 @@ public class TimeManagementController {
         }
     }
 
-    // working
     @DeleteMapping("{userId}/events/{eventId}")
     public ResponseEntity<Void> ignoreEvent(@PathVariable long userId, @PathVariable long eventId) {
         List<UserEvent> userEventsByUserId = userEventRepository.findUserEventsByUserId(userId);
@@ -145,7 +155,6 @@ public class TimeManagementController {
         }
     }
 
-    // working
     @PostMapping("/authenticate")
     public ResponseEntity<User> authenticate(@RequestBody User user) {
         return new ResponseEntity<>(userRepository.findUserByCredentials(user.getEmail(), user.getPassword()), HttpStatus.OK);

@@ -1,4 +1,7 @@
+import { first } from 'rxjs/operators';
+import { EventRequestsDataModel } from './event-requests-data-model';
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service';
 
 @Component({
     selector: 'app-event-requests',
@@ -6,29 +9,34 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./event-requests.component.css']
 })
 export class EventRequestsComponent implements OnInit {
-    events = [
-        {
-            eventTitle: 'title 1',
-            eventOwner: 'owner 1',
-            startTime: new Date(),
-            endTime: new Date(),
-            location: 'location 1',
-            participants: ["participant1", "participant2"],
-            additionalInfo: "additional info 1" 
-        },
-        {
-            eventTitle: 'title 2',
-            eventOwner: 'owner 2',
-            startTime: new Date(),
-            endTime: new Date(),
-            location: 'location 2',
-            participants: null,
-            additionalInfo: "additional info 2" 
-        }
-    ];
+    events: Array<EventRequestsDataModel> = [];
 
-    constructor() { }
+    constructor(private appService: AppService) { }
 
     ngOnInit(): void {
+        this.appService.getUnacceptedEvents()
+            .subscribe(events => {
+                this.events = events;
+            });
+    }
+
+    acceptEvent(event, index) {
+        this.appService.acceptEvent(event.id)
+            .pipe(
+                first()
+            )
+            .subscribe(res => {
+                this.events.splice(index, 1);
+            });
+    }
+
+    ignoreEvent(event, index) {
+        this.appService.ignoreEvent(event.id)
+            .pipe(
+                first()
+            )
+            .subscribe(res => {
+                this.events.splice(index, 1);
+            });
     }
 }

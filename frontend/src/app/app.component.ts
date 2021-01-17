@@ -11,20 +11,14 @@ import { AuthenticationService } from './authentication.service';
 export class AppComponent {
   title = 'frontend';
 
-  constructor(private authService : AuthenticationService){}
+  constructor(private authService: AuthenticationService) { }
 
   get session() {
 
     return JSON.parse(sessionStorage.getItem('user'));
   }
 
-  ngOnInit() {
-
-    // this.appService.test()
-    //   .subscribe(res => {
-    //     console.log(res);
-    //   });
-  }
+  ngOnInit() {}
 
   logout() {
     this.authService.logOut();
