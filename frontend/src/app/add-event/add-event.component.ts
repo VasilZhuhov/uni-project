@@ -76,8 +76,8 @@ export class AddEventComponent implements OnInit {
             user: JSON.parse(sessionStorage.getItem('user'))
             });
 
-        for(let user of this.model.participants) {
-            let dbUser = this.users.find(u => u.email == user.email);
+        for(let email of this.model.participants) {
+            let dbUser = this.users.find(u => u.email == email);
             if(dbUser){
                 this.model['usersEvent'].push(
                     {
@@ -86,7 +86,6 @@ export class AddEventComponent implements OnInit {
                 );
             }
         }
-
         this.appService.createEvent(this.model)
             .pipe(
                 first()
