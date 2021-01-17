@@ -27,7 +27,7 @@ export class EventsComponent implements OnInit {
           .pipe(
             first()
           ).subscribe(events => {
-            this.events = events;
+            this.events = events.sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
           });
       });
   }
